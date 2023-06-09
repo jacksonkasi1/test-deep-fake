@@ -21,8 +21,7 @@ def process_video(source_img, frame_paths):
     for frame_path in frame_paths:
         frame = cv2.imread(frame_path)
         try:
-            face = get_face(frame)
-            if face:
+            if face := get_face(frame):
                 result = get_face_swapper().get(frame, face, source_face, paste_back=True)
                 cv2.imwrite(frame_path, result)
                 print('.', end='', flush=True)
@@ -30,7 +29,6 @@ def process_video(source_img, frame_paths):
                 print('S', end='', flush=True)
         except Exception:
             print('E', end='', flush=True)
-            pass
 
 
 def process_img(source_img, target_path, output_file):
